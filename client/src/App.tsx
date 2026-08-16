@@ -8,7 +8,8 @@ import { SignInScreen } from './pages/SignInScreen';
 import { TaskDetailScreen } from './pages/tasks/TaskDetailScreen';
 import { TaskFormScreen } from './pages/tasks/TaskFormScreen';
 import { TaskListScreen } from './pages/tasks/TaskListScreen';
-import { UsersPlaceholder } from './pages/UsersPlaceholder';
+import { UserDirectoryScreen } from './pages/users/UserDirectoryScreen';
+import { UserFormScreen } from './pages/users/UserFormScreen';
 
 export default function App() {
   return (
@@ -34,7 +35,23 @@ export default function App() {
               path="users"
               element={
                 <RouteGuard requireAdmin>
-                  <UsersPlaceholder />
+                  <UserDirectoryScreen />
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="users/new"
+              element={
+                <RouteGuard requireAdmin>
+                  <UserFormScreen />
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="users/:id/edit"
+              element={
+                <RouteGuard requireAdmin>
+                  <UserFormScreen />
                 </RouteGuard>
               }
             />

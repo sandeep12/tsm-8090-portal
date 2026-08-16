@@ -372,3 +372,17 @@ button:hover {
   margin: 0 0 0.75rem;
   font-size: 1.15rem;
 }
+
+.user-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.user-actions select {
+  font: inherit;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid #d6d3d1;
+  border-radius: 6px;
+}

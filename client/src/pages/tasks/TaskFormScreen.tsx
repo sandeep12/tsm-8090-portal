@@ -2,8 +2,9 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
 import { createTask, getTask, updateTask } from '../../api/tasks';
+import { listUsers } from '../../api/users';
 import { AsyncStateView } from '../../components/AsyncStateView';
-import { ApiError } from '../../types/api';
+import { ApiError, type UserDto } from '../../types/api';
 import { TaskPriority, TaskStatus, type TaskInput } from '../../types/task';
 
 type FormState = {
@@ -48,6 +49,25 @@ export function TaskFormScreen() {
   const [loading, setLoading] = useState(isEdit);
   const [loadError, setLoadError] = useState<{ message: string } | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [assignees, setAssignees] = useState<UserDto[]>([]);
+
+  useEffect(() => {
+    if (!isAdministrator) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const users = await listUsers(api);
+        if (!cancelled) {
+          setAssignees(users.filter((item) => item.active));
+        }
+      } catch {
+        if (!cancelled) setAssignees([]);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [api, isAdministrator]);
 
   useEffect(() => {
     if (!isEdit && user?.id) {
@@ -243,20 +263,23 @@ export function TaskFormScreen() {
             <label className="field">
               <span>Assigned user</span>
               {isAdministrator ? (
-                <input
+                <select
                   value={form.assignedUserId}
                   disabled={submitting}
-                  placeholder="User id"
                   onChange={(event) => updateField('assignedUserId', event.target.value)}
-                />
+                >
+                  <option value="">Select a user</option>
+                  {assignees.map((assignee) => (
+                    <option key={assignee.id} value={assignee.id}>
+                      {assignee.name} ({assignee.email})
+                    </option>
+                  ))}
+                </select>
               ) : (
                 <input value={user?.name ?? 'You'} disabled readOnly />
               )}
               {fieldErrors.assignedUserId ? (
                 <span className="field-error">{fieldErrors.assignedUserId}</span>
-              ) : null}
-              {isAdministrator ? (
-                <span className="field-hint">Enter the user id until the user directory ships.</span>
               ) : null}
             </label>
           </div>
