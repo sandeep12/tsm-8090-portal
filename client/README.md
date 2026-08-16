@@ -1,6 +1,6 @@
 # TSM Portal — Client App
 
-Implements **WO-3** (SPA shell), **WO-5** (sign-in), and **WO-7** (task screens).
+Implements **WO-3** (SPA shell), **WO-5** (sign-in), **WO-7** (task screens), and **WO-9** (dashboard).
 
 ## Setup
 
@@ -11,13 +11,15 @@ npm run smoke:wo3
 npm run dev
 ```
 
-Run the API (`server/`) alongside the client.
+Run the API (`server/`) alongside the client. After sign-in, users land on `/` (dashboard).
 
-## Task screens (WO-7)
+## Screens
 
 | Route | Screen |
 |-------|--------|
-| `/tasks` | List with search + status/priority filters |
-| `/tasks/new` | Create form (status defaults to To Do) |
-| `/tasks/:id` | Detail, status change, delete confirm |
-| `/tasks/:id/edit` | Edit form |
+| `/` | Dashboard — counts + recent activity |
+| `/tasks` | Task list |
+| `/tasks/new` | Create task |
+| `/tasks/:id` | Task detail |
+| `/tasks/:id/edit` | Edit task |
+| `/sign-in` | Sign in |

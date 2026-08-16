@@ -2,7 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './auth/AuthContext';
 import { AppLayout } from './components/AppLayout';
 import { RouteGuard } from './components/RouteGuard';
-import { DashboardPlaceholder } from './pages/DashboardPlaceholder';
+import { DashboardScreen } from './pages/DashboardScreen';
 import { ForbiddenPage } from './pages/ForbiddenPage';
 import { SignInScreen } from './pages/SignInScreen';
 import { TaskDetailScreen } from './pages/tasks/TaskDetailScreen';
@@ -25,7 +25,7 @@ export default function App() {
               </RouteGuard>
             }
           >
-            <Route index element={<DashboardPlaceholder />} />
+            <Route index element={<DashboardScreen />} />
             <Route path="tasks" element={<TaskListScreen />} />
             <Route path="tasks/new" element={<TaskFormScreen />} />
             <Route path="tasks/:id/edit" element={<TaskFormScreen />} />
