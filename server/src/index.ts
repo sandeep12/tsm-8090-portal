@@ -13,3 +13,6 @@ export * from './validation';
 export type { ErrorResponse, FieldError } from './types/error-response';
 export type { UserDto, AuthResponse, AuthPrincipal } from './types/auth';
 export { toUserDto } from './types/auth';
+export type { TaskDto } from './types/task';
+export { toTaskDto } from './types/task';
+export * from './tasks';

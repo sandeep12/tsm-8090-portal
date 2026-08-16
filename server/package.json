@@ -12,7 +12,8 @@
     "start": "node dist/server.js",
     "dev": "tsx src/server.ts",
     "smoke:wo2": "tsx scripts/smoke-wo2.ts",
-    "smoke:wo4": "tsx scripts/smoke-wo4.ts"
+    "smoke:wo4": "tsx scripts/smoke-wo4.ts",
+    "smoke:wo6": "tsx scripts/smoke-wo6.ts"
   },
   "engines": {
     "node": ">=20"

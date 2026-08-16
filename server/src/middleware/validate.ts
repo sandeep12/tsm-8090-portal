@@ -4,6 +4,15 @@ import { ValidationAppError } from '../errors/http-errors';
 
 type RequestTarget = 'body' | 'query' | 'params';
 
+declare global {
+  namespace Express {
+    interface Request {
+      /** Parsed/coerced query when `req.query` is read-only (Express 5). */
+      validatedQuery?: unknown;
+    }
+  }
+}
+
 /**
  * Schema-based validation middleware. Reports every invalid field, then raises
  * a validation error for the terminal ErrorHandler.
@@ -24,8 +33,12 @@ export function validateRequest(
       return;
     }
 
-    // Replace with parsed/coerced values so controllers see clean input.
-    (req as Request & Record<RequestTarget, unknown>)[target] = result.data;
+    if (target === 'query') {
+      // Express 5 exposes query as a getter-only property.
+      req.validatedQuery = result.data;
+    } else {
+      (req as Request & Record<'body' | 'params', unknown>)[target] = result.data;
+    }
     next();
   };
 }
