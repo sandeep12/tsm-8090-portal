@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "software-factory-tsm-po-5549376c": {
+      "type": "http",
+      "url": "https://api.factory.8090.dev/v2/mcp?sf_project=5549376c-2814-4626-ae31-a86b9003e723",
+      "headers": {
+        "X-Sofa-Mcp-Project-Id": "5549376c-2814-4626-ae31-a86b9003e723"
+      }
+    }
+  }
+}
