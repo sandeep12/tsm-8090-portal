@@ -24,3 +24,13 @@ export const config = {
     return process.env.JWT_EXPIRES_IN ?? '8h';
   },
 };
+
+/** Validate env required to boot the HTTP server (WO-2). */
+export function assertServerConfig(): void {
+  required('MONGODB_URI');
+  required('JWT_SECRET');
+  const port = Number(process.env.PORT ?? 3000);
+  if (!Number.isInteger(port) || port <= 0) {
+    throw new Error('PORT must be a positive integer');
+  }
+}

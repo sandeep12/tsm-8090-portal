@@ -1,4 +1,10 @@
-export { config } from './config/env';
+export { config, assertServerConfig } from './config/env';
 export { connectDatabase, disconnectDatabase } from './db/connection';
+export { createApp } from './app';
 export * from './models';
 export * from './repositories';
+export * from './errors/http-errors';
+export { validateRequest } from './middleware/validate';
+export { errorHandler, notFoundHandler } from './middleware/error-handler';
+export * from './validation';
+export type { ErrorResponse, FieldError } from './types/error-response';

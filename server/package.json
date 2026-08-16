@@ -2,24 +2,32 @@
   "name": "tsm-portal-server",
   "version": "0.1.0",
   "private": true,
-  "description": "Task Management API server — persistence layer (WO-1)",
+  "description": "Task Management API server (WO-1 persistence, WO-2 Express scaffold)",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "clean": "rm -rf dist",
-    "smoke:wo1": "tsx scripts/smoke-wo1.ts"
+    "smoke:wo1": "tsx scripts/smoke-wo1.ts",
+    "start": "node dist/server.js",
+    "dev": "tsx src/server.ts",
+    "smoke:wo2": "tsx scripts/smoke-wo2.ts"
   },
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
-    "mongoose": "^8.9.5"
+    "express": "^5.2.1",
+    "mongoose": "^8.9.5",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^22.10.7",
+    "@types/supertest": "^7.2.1",
     "mongodb-memory-server": "^11.2.0",
+    "supertest": "^7.2.2",
     "tsx": "^4.23.12",
     "typescript": "^5.7.3"
   },

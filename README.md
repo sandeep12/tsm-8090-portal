@@ -1,6 +1,6 @@
 # TSM Portal
 
-Task Management application (MERN). Backend persistence for Phase 1 starts in `server/`.
+Task Management application (MERN). Backend lives in `server/`.
 
 Repo: [sandeep12/tsm-8090-portal](https://github.com/sandeep12/tsm-8090-portal)
 
@@ -8,6 +8,6 @@ Repo: [sandeep12/tsm-8090-portal](https://github.com/sandeep12/tsm-8090-portal)
 
 | Path | Scope |
 |------|--------|
-| `server/` | API persistence — User/Task models & repositories (**WO-1**) |
+| `server/` | API — persistence (**WO-1**) + Express scaffold/validation (**WO-2**) |
 
 See `server/README.md` for setup.
