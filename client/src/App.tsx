@@ -5,7 +5,9 @@ import { RouteGuard } from './components/RouteGuard';
 import { DashboardPlaceholder } from './pages/DashboardPlaceholder';
 import { ForbiddenPage } from './pages/ForbiddenPage';
 import { SignInScreen } from './pages/SignInScreen';
-import { TasksPlaceholder } from './pages/TasksPlaceholder';
+import { TaskDetailScreen } from './pages/tasks/TaskDetailScreen';
+import { TaskFormScreen } from './pages/tasks/TaskFormScreen';
+import { TaskListScreen } from './pages/tasks/TaskListScreen';
 import { UsersPlaceholder } from './pages/UsersPlaceholder';
 
 export default function App() {
@@ -24,7 +26,10 @@ export default function App() {
             }
           >
             <Route index element={<DashboardPlaceholder />} />
-            <Route path="tasks" element={<TasksPlaceholder />} />
+            <Route path="tasks" element={<TaskListScreen />} />
+            <Route path="tasks/new" element={<TaskFormScreen />} />
+            <Route path="tasks/:id/edit" element={<TaskFormScreen />} />
+            <Route path="tasks/:id" element={<TaskDetailScreen />} />
             <Route
               path="users"
               element={
