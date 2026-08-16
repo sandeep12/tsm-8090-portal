@@ -1,6 +1,6 @@
 # TSM Portal — API Server
 
-Implements **WO-1** (persistence), **WO-2** (Express scaffold), **WO-4** (auth), and **WO-6** (Task API).
+Implements **WO-1** (persistence), **WO-2** (Express scaffold), **WO-4** (auth), **WO-6** (Task API), and **WO-8** (Dashboard API).
 
 ## Layout
 
@@ -28,6 +28,7 @@ npm run smoke:wo1
 npm run smoke:wo2
 npm run smoke:wo4
 npm run smoke:wo6
+npm run smoke:wo8
 npm run dev
 ```
 
@@ -51,3 +52,9 @@ Bad credentials always return the same message. Inactive accounts are refused at
 | PATCH | `/api/tasks/:id` | update |
 | PATCH | `/api/tasks/:id/status` | status change |
 | DELETE | `/api/tasks/:id` | delete |
+
+## Dashboard API (WO-8)
+
+| Method | Path | Notes |
+|--------|------|--------|
+| GET | `/api/dashboard` | scoped counts + recent tasks (`DashboardSummary`) |

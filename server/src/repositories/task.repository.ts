@@ -1,4 +1,5 @@
 import type { FilterQuery, Types } from 'mongoose';
+import { Types as MongooseTypes } from 'mongoose';
 import { TaskModel, TaskStatus, type TaskDocument, type TaskPriority, type TaskStatus as TaskStatusType } from '../models';
 import { InvalidAssigneeError, NotFoundError } from './errors';
 import { UserRepository } from './user.repository';
@@ -128,7 +129,7 @@ export class TaskRepository {
     const query: FilterQuery<TaskDocument> = {};
 
     if (filter.assignedUserId) {
-      query.assignedUserId = filter.assignedUserId;
+      query.assignedUserId = new MongooseTypes.ObjectId(String(filter.assignedUserId));
     }
     if (filter.status) {
       query.status = filter.status;

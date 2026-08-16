@@ -15,4 +15,6 @@ export type { UserDto, AuthResponse, AuthPrincipal } from './types/auth';
 export { toUserDto } from './types/auth';
 export type { TaskDto } from './types/task';
 export { toTaskDto } from './types/task';
+export type { DashboardSummary, DashboardCounts } from './types/dashboard';
 export * from './tasks';
+export * from './dashboard';

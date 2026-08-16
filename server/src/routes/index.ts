@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { createAuthRouter } from '../auth/auth.routes';
 import { createTaskRouter } from '../tasks/task.routes';
+import { createDashboardRouter } from '../dashboard/dashboard.routes';
 
 /**
  * Top-level API router.
@@ -14,10 +15,10 @@ export function createApiRouter(): Router {
 
   api.use('/auth', createAuthRouter());
   api.use('/tasks', createTaskRouter());
+  api.use('/dashboard', createDashboardRouter());
 
-  // Placeholders for WO-8 / WO-10
+  // Placeholder for WO-10
   api.use('/users', Router());
-  api.use('/dashboard', Router());
 
   return api;
 }
