@@ -18,3 +18,4 @@ export { toTaskDto } from './types/task';
 export type { DashboardSummary, DashboardCounts } from './types/dashboard';
 export * from './tasks';
 export * from './dashboard';
+export * from './users';

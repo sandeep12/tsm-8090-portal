@@ -1,4 +1,4 @@
-export { userInputSchema, type UserInput } from './user-input';
+export { userInputSchema, userCreateSchema, userUpdateSchema, userRoleChangeSchema, userActiveChangeSchema, type UserInput, type UserCreateInput, type UserUpdateBody } from './user-input';
 export {
   taskInputSchema,
   taskUpdateSchema,

@@ -25,6 +25,7 @@ function toErrorResponse(error: unknown): { status: number; body: ErrorResponse 
       body: {
         message: error.message,
         code: error.code,
+        errors: [{ field: 'email', message: error.message }],
       },
     };
   }

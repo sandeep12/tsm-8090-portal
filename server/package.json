@@ -14,7 +14,8 @@
     "smoke:wo2": "tsx scripts/smoke-wo2.ts",
     "smoke:wo4": "tsx scripts/smoke-wo4.ts",
     "smoke:wo6": "tsx scripts/smoke-wo6.ts",
-    "smoke:wo8": "tsx scripts/smoke-wo8.ts"
+    "smoke:wo8": "tsx scripts/smoke-wo8.ts",
+    "smoke:wo10": "tsx scripts/smoke-wo10.ts"
   },
   "engines": {
     "node": ">=20"

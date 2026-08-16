@@ -2,7 +2,7 @@ export class DuplicateEmailError extends Error {
   readonly code = 'DUPLICATE_EMAIL' as const;
 
   constructor(email: string) {
-    super(`A user with email "${email}" already exists`);
+    super(`Email "${email}" is already in use`);
     this.name = 'DuplicateEmailError';
   }
 }
