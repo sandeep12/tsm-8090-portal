@@ -15,7 +15,9 @@
     "smoke:wo4": "tsx scripts/smoke-wo4.ts",
     "smoke:wo6": "tsx scripts/smoke-wo6.ts",
     "smoke:wo8": "tsx scripts/smoke-wo8.ts",
-    "smoke:wo10": "tsx scripts/smoke-wo10.ts"
+    "smoke:wo10": "tsx scripts/smoke-wo10.ts",
+    "seed:admin": "tsx scripts/seed-admin.ts",
+    "seed": "tsx scripts/seed-admin.ts"
   },
   "engines": {
     "node": ">=20"
