@@ -8,7 +8,7 @@ Repo: [sandeep12/tsm-8090-portal](https://github.com/sandeep12/tsm-8090-portal)
 
 | Path | Scope |
 |------|--------|
-| `server/` | API — persistence (**WO-1**) + Express scaffold (**WO-2**) |
-| `client/` | React SPA shell — ApiClient, auth, route guard (**WO-3**) |
+| `server/` | API — persistence, Express scaffold, auth (**WO-1, WO-2, WO-4**) |
+| `client/` | React SPA shell + sign-in (**WO-3, WO-5**) |
 
 See each package README for setup.
