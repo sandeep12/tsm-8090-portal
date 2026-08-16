@@ -16,7 +16,12 @@ export function AppLayout() {
         </nav>
         <div className="app-session">
           <span>{user?.name}</span>
-          <button type="button" onClick={signOut}>
+          <button
+            type="button"
+            onClick={() => {
+              void signOut();
+            }}
+          >
             Sign out
           </button>
         </div>

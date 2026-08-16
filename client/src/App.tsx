@@ -4,7 +4,7 @@ import { AppLayout } from './components/AppLayout';
 import { RouteGuard } from './components/RouteGuard';
 import { DashboardPlaceholder } from './pages/DashboardPlaceholder';
 import { ForbiddenPage } from './pages/ForbiddenPage';
-import { SignInPlaceholder } from './pages/SignInPlaceholder';
+import { SignInScreen } from './pages/SignInScreen';
 import { TasksPlaceholder } from './pages/TasksPlaceholder';
 import { UsersPlaceholder } from './pages/UsersPlaceholder';
 
@@ -13,7 +13,7 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/sign-in" element={<SignInPlaceholder />} />
+          <Route path="/sign-in" element={<SignInScreen />} />
           <Route path="/forbidden" element={<ForbiddenPage />} />
 
           <Route

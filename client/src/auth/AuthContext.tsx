@@ -13,7 +13,12 @@ import {
   loadSessionToken,
   saveSessionToken,
 } from '../api/token-storage';
-import type { UserDto } from '../types/api';
+import type { AuthResponse, UserDto } from '../types/api';
+
+type SignOutOptions = {
+  /** When false, skip calling the server (used for invalid-session cleanup). */
+  notifyServer?: boolean;
+};
 
 type AuthContextValue = {
   user: UserDto | null;
@@ -21,9 +26,9 @@ type AuthContextValue = {
   isAuthenticated: boolean;
   isAdministrator: boolean;
   api: ApiClient;
-  /** Establish a session after successful sign-in (WO-5). */
   setSession: (token: string, user: UserDto) => void;
-  signOut: () => void;
+  signIn: (email: string, password: string) => Promise<void>;
+  signOut: (options?: SignOutOptions) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -55,24 +60,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const tokenRef = useRef(token);
   tokenRef.current = token;
 
-  const signOut = useCallback(() => {
+  const clearLocalSession = useCallback(() => {
     clearSessionToken();
     clearStoredUser();
     setToken(null);
     setUser(null);
   }, []);
 
-  const signOutRef = useRef(signOut);
-  signOutRef.current = signOut;
-
   const api = useMemo(
     () =>
       new ApiClient({
         baseUrl: import.meta.env.VITE_API_BASE_URL ?? '',
         getToken: () => tokenRef.current,
-        onUnauthorized: () => signOutRef.current(),
+        onUnauthorized: () => {
+          clearLocalSession();
+        },
       }),
-    [],
+    [clearLocalSession],
   );
 
   const setSession = useCallback((nextToken: string, nextUser: UserDto) => {
@@ -82,6 +86,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(nextUser);
   }, []);
 
+  const signIn = useCallback(
+    async (email: string, password: string) => {
+      const response = await api.post<AuthResponse>(
+        '/api/auth/sign-in',
+        { email, password },
+        { auth: false },
+      );
+      setSession(response.token, response.user);
+    },
+    [api, setSession],
+  );
+
+  const signOut = useCallback(
+    async (options: SignOutOptions = {}) => {
+      const existingToken = tokenRef.current;
+      const shouldNotify = options.notifyServer !== false;
+
+      clearLocalSession();
+
+      if (shouldNotify && existingToken) {
+        try {
+          await api.post('/api/auth/sign-out', undefined);
+        } catch {
+          // Local session is already cleared; ignore server errors on sign-out.
+        }
+      }
+    },
+    [api, clearLocalSession],
+  );
+
   const value = useMemo<AuthContextValue>(
     () => ({
       user,
@@ -90,9 +124,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       isAdministrator: user?.role === 'Administrator',
       api,
       setSession,
+      signIn,
       signOut,
     }),
-    [user, token, api, setSession, signOut],
+    [user, token, api, setSession, signIn, signOut],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

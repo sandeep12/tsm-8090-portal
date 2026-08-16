@@ -18,7 +18,7 @@ export const config = {
     return Number(process.env.PORT ?? 3000);
   },
   get jwtSecret(): string {
-    return process.env.JWT_SECRET ?? '';
+    return required('JWT_SECRET');
   },
   get jwtExpiresIn(): string {
     return process.env.JWT_EXPIRES_IN ?? '8h';

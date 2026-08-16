@@ -8,6 +8,11 @@ export type UserDto = {
   active: boolean;
 };
 
+export type AuthResponse = {
+  token: string;
+  user: UserDto;
+};
+
 export type FieldError = {
   field: string;
   message: string;

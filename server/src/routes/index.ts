@@ -1,8 +1,8 @@
 import { Router } from 'express';
+import { createAuthRouter } from '../auth/auth.routes';
 
 /**
- * Route registration shell for upcoming feature work orders.
- * Controllers are intentionally empty in WO-2.
+ * Top-level API router.
  */
 export function createApiRouter(): Router {
   const api = Router();
@@ -11,8 +11,9 @@ export function createApiRouter(): Router {
     res.status(200).json({ status: 'ok' });
   });
 
-  // Placeholders for WO-4 / WO-6 / WO-8 / WO-10
-  api.use('/auth', Router());
+  api.use('/auth', createAuthRouter());
+
+  // Placeholders for WO-6 / WO-8 / WO-10
   api.use('/tasks', Router());
   api.use('/users', Router());
   api.use('/dashboard', Router());

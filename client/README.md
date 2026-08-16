@@ -1,6 +1,6 @@
 # TSM Portal — Client App
 
-Implements **WO-3**: React SPA shell with `ApiClient`, `AuthContext`, `RouteGuard`, and `AsyncStateView`.
+Implements **WO-3** (SPA shell) and **WO-5** (sign-in flow).
 
 ## Setup
 
@@ -17,19 +17,11 @@ Optional `.env`:
 VITE_API_BASE_URL=   # empty uses Vite proxy to http://127.0.0.1:3000
 ```
 
-## Layout
+Run the API (`server/`) alongside the client for a full sign-in.
 
-```
-src/
-  api/           # ApiClient + token storage
-  auth/          # AuthContext / useAuth
-  components/    # RouteGuard, AsyncStateView, AppLayout
-  pages/         # placeholders until feature WOs
-  types/         # ErrorResponse, UserDto
-```
+## Auth flow (WO-5)
 
-## Behaviour
-
-- Unauthenticated users are redirected to `/sign-in` (screen itself is WO-5).
-- `/users` requires Administrator role (client-side only).
-- `ApiClient` attaches `Authorization: Bearer …`, parses `ErrorResponse`, and signs out on `401`.
+- `/sign-in` — email + obscured password, client empty-field checks, in-progress lock
+- Success stores `SessionToken` via `AuthContext` and routes to the dashboard
+- `401` from `ApiClient` clears the session; `RouteGuard` returns to sign-in
+- Sign out clears local session and best-effort notifies `/api/auth/sign-out`

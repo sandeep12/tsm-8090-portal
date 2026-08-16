@@ -1,6 +1,6 @@
 # TSM Portal — API Server
 
-Implements **WO-1** (persistence) and **WO-2** (Express scaffold + validation/errors).
+Implements **WO-1** (persistence), **WO-2** (Express scaffold), and **WO-4** (auth).
 
 ## Layout
 
@@ -11,10 +11,10 @@ src/
   models/                    # User & Task schemas
   repositories/              # UserRepository & TaskRepository
   app.ts / server.ts         # Express bootstrap + listen
-  middleware/                # validateRequest, errorHandler
-  errors/                    # HTTP AppError hierarchy
+  middleware/                # validate, errorHandler, authenticate, authorize
+  auth/                      # AuthController, AuthService, TokenService
   validation/                # UserInput / TaskInput Zod schemas
-  routes/                    # /api shell (health + resource placeholders)
+  routes/                    # /api shell
 ```
 
 ## Setup
@@ -26,15 +26,16 @@ npm install
 npm run typecheck
 npm run smoke:wo1
 npm run smoke:wo2
-npm run dev                  # requires .env + reachable MongoDB
+npm run smoke:wo4
+npm run dev
 ```
 
-## HTTP contract (WO-2)
+## Auth API (WO-4)
 
-- `GET /api/health` → `{ status: "ok" }`
-- Unknown routes → `404` `ErrorResponse`
-- Invalid bodies (via `validateRequest`) → `400` with every field error
-- `DuplicateEmailError` → `409`
-- Error bodies never include stack traces
+| Method | Path | Notes |
+|--------|------|--------|
+| POST | `/api/auth/sign-in` | `{ email, password }` → `AuthResponse` |
+| POST | `/api/auth/sign-out` | bearer required; client discards token |
+| GET | `/api/auth/me` | current session user |
 
-Feature controllers (auth/tasks/users/dashboard) arrive in later work orders.
+Bad credentials always return the same message. Inactive accounts are refused at sign-in and on the next authenticated request.
